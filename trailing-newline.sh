@@ -25,7 +25,6 @@ if [ -n "$files" ]; then
         echo "Error! Trailing newline added to ${f}" 1>&2
         error=1
         echo >> $f
-        git add $f  # commit change
       fi
     fi
   done
