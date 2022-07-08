@@ -9,7 +9,7 @@ Add to your `.pre-commit-config.yaml` file and run `pre-commit install`. Pass an
 ```
 repos:
   - repo: https://github.com/philipdarke/trailing-newline
-    rev: v1.0.0
+    rev: v1.0.1
     hooks:
     - id: trailing-newline
       args: [pdf|jpg]
