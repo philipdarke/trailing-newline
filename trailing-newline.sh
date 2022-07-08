@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Pre-commit hook to add a trailing newline if missing. Based on
+# https://gist.github.com/Robotic-Brain/ffafe886a9e4b7b9e946318817440abe
+# and https://gist.github.com/johnjohndoe/4024222.
+#
+# Author: Philip Darke <philip@philipdarke.com>
+# Date: 8 July 2022
+
+# Get staged files
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+  against=HEAD
+else
+  against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+files=$(git diff-index --cached --name-only --diff-filter=d "$against")
+
+# Add trailing newline if missing
+error=0
+if [ -n "$files" ]; then
+  for f in $files; do
+    if ! [[ $f =~ .*\.($1) ]]; then
+      if [ "$(tail -n 1 $f)" != '' ]; then      
+        echo "Error! Trailing newline added to ${f}" 1>&2
+        error=1
+        echo >> $f
+        git add $f  # commit change
+      fi
+    fi
+  done
+fi
+
+exit $error
+

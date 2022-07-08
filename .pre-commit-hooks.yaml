@@ -1,0 +1,6 @@
+- id: trailing-newline
+  name: trailing-newline
+  entry: trailing-newline.sh
+  types: [text]
+  language: "script"
+  description: "Files should end in a blank line"
