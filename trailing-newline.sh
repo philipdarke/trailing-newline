@@ -8,13 +8,7 @@
 # Date: 8 July 2022
 
 # Get staged files
-if git rev-parse --verify HEAD >/dev/null 2>&1
-then
-  against=HEAD
-else
-  against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
-fi
-files=$(git diff-index --cached --name-only --diff-filter=d "$against")
+files=$(git diff-index --name-status --cached HEAD | grep -v ^D | cut -c3-)
 
 # Add trailing newline if missing
 error=0
